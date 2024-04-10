@@ -1,55 +1,49 @@
-/**
- * SYST 17796 Project Base code.
- * Students can modify and extend to implement their game.
- * Add your name as an author and the date!
- */
 package ca.sheridancollege.project;
 
-import java.util.ArrayList;
-import java.util.Collections;
+//@author Group7_HarshdeepSingh
 
-/**
- * A concrete class that represents any grouping of cards for a Game. HINT, you might want to subclass this more than
- * once. The group of cards has a maximum size attribute which is flexible for reuse.
- *
- * @author dancye
- * @author Paul Bonenfant Jan 2020
- */
-public class GroupOfCards {
+import java.util.Random;
 
-    //The group of cards, stored in an ArrayList
-    private ArrayList<Card> cards;
-    private int size;//the size of the grouping
-
-    public GroupOfCards(int size) {
-        this.size = size;
+public class GroupOfCards 
+{
+    
+    // Method to generate a set of cards in hand
+    public static Card[] generateCardsInHand(int numOfCards) 
+    {
+        // Create an array to hold the cards
+        Card[] InHand = new Card[numOfCards];
+        
+        // Generate cards randomly and add them to the array
+        for(int i = 0; i < InHand.length; i++) 
+        {
+            // Generate a random value for the card
+            Card.Value value = generateRandomValue();
+            
+            // Generate a random suit for the card
+            Card.Suit suit = generateRandomSuit();
+            
+            // Create a new card with the generated value and suit
+            Card card = new Card(value, suit);
+            
+            // Add the card to the array
+            InHand[i] = card;
+        } 
+        
+        // Return the array of cards
+        return InHand;
     }
-
-    /**
-     * A method that will get the group of cards as an ArrayList
-     *
-     * @return the group of cards.
-     */
-    public ArrayList<Card> getCards() {
-        return cards;
+    
+    // Method to generate a random card value
+    private static Card.Value generateRandomValue() 
+    {
+        Random random = new Random();
+        return Card.Value.values()[random.nextInt(Card.Value.values().length)];
     }
-
-    public void shuffle() {
-        Collections.shuffle(cards);
+    
+    // Method to generate a random card suit
+    private static Card.Suit generateRandomSuit()
+    {
+        Random random = new Random();
+        return Card.Suit.values()[random.nextInt(Card.Suit.values().length)];
     }
-
-    /**
-     * @return the size of the group of cards
-     */
-    public int getSize() {
-        return size;
-    }
-
-    /**
-     * @param size the max size for the group of cards
-     */
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-}//end class
+}
